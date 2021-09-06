@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        #heading { color: #FFFFFF; }
+    </style>
+    <title>Modificar Datos de Paciente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+</head>
+<body>
+<h1 id="heading">&nbsp VSDRI - <u>Modificar Datos del Paciente</u></h1>
+<div class="container">
+<form method="POST">
+    {{forma.csrf_token}}
+    <p>
+        {{forma.dni.label}} <br/>
+        {{forma.dni(size=10)}}
+    </p>
+    <p>
+        {{forma.nombre.label}} <br/>
+        {{forma.nombre(size=30)}}
+    </p>
+    <p>
+        {{forma.apellido.label}} <br/>
+        {{forma.apellido(size=30)}}
+    </p>
+    <p>
+        {{forma.email.label}} <br/>
+        {{forma.email(size=30)}}
+    </p>
+    <p>
+        {{forma.enviar()}}
+    </p>
+</form>
+    <br />
+    <div>
+         <a href="{{url_for('inicio')}}">Volver</a>
+    </div>
+</div>
+</body>
+<div class="footer">
+        &copy; Unir 2021 - Ernesto Matas Millas &nbsp;
+</div>
+</html>

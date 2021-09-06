@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VSDRI - Añadir Nuevo Paciente</title>
+    <style>
+  * {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+a {
+  color: white;
+  text-decoration:none;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<h1 id="heading">&nbsp VSDRI - <u>Añadir Tratamiento a verificar</u></h1>
+<form method="POST" class="container">
+    {{forma.csrf_token}}
+    <table>
+        <tr>
+            <th>DNI PACIENTE</th>
+            <th>NOMBRE PACIENTE</th>
+            <th>APELLIDOS PACIENTE</th>
+            <th>TÉCNICO RESPONSABLE</th>
+        </tr>
+        <tr>
+            <td>{{forma.dni(size=10)}}</td>
+            <td>{{forma.nombre(size=30)}}</td>
+            <td>{{forma.apellido(size=40)}}</td>
+            <td>{{forma.tecnico(size=30)}}</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <th>Nº DE SERIE</th>
+            <th>DOSIS TOTAL</th>
+            <th></th>
+            <th>Nº SESIONES</th>
+            <th>% PAUTA</th>
+            <th>MOVIMIENTOS</th>
+        </tr>
+        <tr>
+            <td>{{forma.serie_numero(size=5)}}</td>
+            <td>{{forma.dosis_total(size=10)}}</td>
+            <td>cGy</td>
+            <td>{{forma.numero_sesiones(size=10)}}</td>
+            <td>{{forma.porcentaje_pauta(size=10)}}</td>
+            <td>{{forma.Movimientos(size=30)}}</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <th></th>
+            <th>LATERAL</th>
+            <th>ANT-POST</th>
+            <th>SUP-INF</th>
+            <th>Nº CAMPOS</th>
+        </tr>
+        <tr>
+            <td>TAC.&nbsp;</td>
+            <td>{{forma.tac_lateral(size=10)}}</td>
+            <td>{{forma.tac_ant_post(size=10)}}</td>
+            <td>{{forma.tac_sup_inf(size=10)}}</td>
+            <td>{{forma.numero_campos(size=10)}}</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+        </tr>
+        <tr>
+            <td>ISO &nbsp;&nbsp;</td>
+            <td>{{forma.iso_lateral(size=10)}}</td>
+            <td>{{forma.iso_ant_post(size=10)}}</td>
+            <td>{{forma.iso_sup_inf(size=10)}}</td>
+
+        </tr>
+    </table>
+    <table>
+        <tr>
+        </tr>
+        <tr>
+            <td>NOR&nbsp;</td>
+            <td>{{forma.norm_lateral(size=10)}}</td>
+            <td>{{forma.norm_ant_post(size=10)}}</td>
+            <td>{{forma.norm_sup_inf(size=10)}}</td>
+        </tr>
+    </table>
+    <br />
+    <table>
+        <tr>
+            <td>{{forma.enviar()}}</td>
+            <td><button><a href="{{url_for('inicio')}}">Volver a Pacientes con Tratamiento en Verificación</a></button></td>
+        </tr>
+    </table>
+</form>
+</body>
+<div style="text-align: right;">
+        &copy; Unir 2021 - Ernesto Matas Millas &nbsp;
+</div>
+</html>

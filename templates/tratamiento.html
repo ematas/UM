@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        #heading { color: #FFFFFF; }
+    </style>
+    <title>VSDRI - Tratamiento a Verificar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+</head>
+<body>
+<h1 id="heading">&nbsp VSDRI - <u>Tratamiento a Verificar {{forma.id}}</u></h1>
+<form method="POST">
+    <table width="80%" border="1" cellspacing="0" cellpadding="0">
+    {{forma.csrf_token}}
+    <tr>
+        <td>{{forma.tecnico.label}}</td>
+        <td>{{forma.tecnico(size=30)}}</td>
+        <td>{{forma.serie_numero.label}}</td>
+        <td>{{forma.serie_numero(size=30)}}</td>
+    </tr>
+    <p>
+        {{forma.dosis_total.label}} <br/>
+        {{forma.dosis_total(size=30)}}
+    </p>
+    <p>
+        {{forma.numero_sesiones.label}} <br/>
+        {{forma.numero_sesiones(size=30)}}
+    </p>
+    <p>
+        {{forma.porcentaje_pauta.label}} <br/>
+        {{forma.porcentaje_pauta(size=30)}}
+    </p>
+    <p>
+        {{forma.Movimientos.label}} <br/>
+        {{forma.Movimientos(size=30)}}
+    </p>
+    <p>
+        {{forma.tac_lateral.label}} <br/>
+        {{forma.tac_lateral(size=30)}}
+    </p>
+    <p>
+        {{forma.tac_ant_post.label}} <br/>
+        {{forma.tac_ant_post(size=30)}}
+    </p>
+    <p>
+        {{forma.tac_sup_inf.label}} <br/>
+        {{forma.tac_sup_inf(size=30)}}
+    </p>
+    <p>
+        {{forma.iso_lateral.label}} <br/>
+        {{forma.iso_lateral(size=30)}}
+    </p>
+    <p>
+        {{forma.iso_ant_post.label}} <br/>
+        {{forma.iso_ant_post(size=30)}}
+    </p>
+    <p>
+        {{forma.iso_sup_inf.label}} <br/>
+        {{forma.iso_sup_inf(size=30)}}
+    </p>
+    <p>
+        {{forma.norm_lateral.label}} <br/>
+        {{forma.norm_lateral(size=30)}}
+    </p>
+    <p>
+        {{forma.norm_ant_post.label}} <br/>
+        {{forma.norm_ant_post(size=30)}}
+    </p>
+    <p>
+        {{forma.norm_sup_inf.label}} <br/>
+        {{forma.norm_sup_inf(size=30)}}
+    </p>
+    <p>
+        {{forma.enviar()}}
+    </p>
+        </table>
+</form>
+    <br />
+    <div>
+            <a href="{{url_for('inicio')}}">Volver</a>
+    </div>
+</body>
+</html>

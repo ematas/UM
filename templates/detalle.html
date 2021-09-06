@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VSDRI - Añadir Nuevo Paciente</title>
+    <style>
+  * {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+a {
+  color: white;
+  text-decoration:none;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<h1 id="heading">&nbsp VSDRI - <u>Realizar Verificación de Paciente-Tratamiento</u></h1>
+<form method="POST" class="container">
+    {{persona.csrf_token}}
+    <table>
+        <tr>
+            <th><u>DNI</u></th>
+            <th><u>NOMBRE</u></th>
+            <th><u>APELLIDOS</u></th>
+            <th><u>TÉCNICO</u></th>
+        </tr>
+        <tr>
+            <td style="width:60px;text-align:center">{{persona.dni}}</td>
+            <td style="width:200px;text-align:center">{{persona.nombre}}</td>
+            <td style="width:200px;text-align:center">{{persona.apellido}}</td>
+            <td style="width:200px;text-align:center">{{persona.tecnico}}</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <th><u>NºSERIE</u></th>
+            <th><u>DOSIS TOTAL</u></th>
+            <th><u>Nº SESIONES</u></th>
+            <th><u>% PAUTA</u></th>
+            <th><u>MOVIMIENTOS</u></th>
+        </tr>
+        <tr>
+            <td style="width:85px;text-align:center">{{persona.serie_numero}}</td>
+            <td style="width:200px;text-align:center">{{persona.dosis_total}} cGy</td>
+            <td style="width:200px;text-align:center">{{persona.numero_sesiones}}</td>
+            <td style="width:200px;text-align:center">{{persona.porcentaje_pauta}}</td>
+            <td style="width:200px;text-align:center">{{persona.Movimientos}}</td>
+        </tr>
+    </table>
+    <br />
+    <table>
+        <tr>
+            <th></th>
+            <th><u>LATERAL</u></th>
+            <th><u>ANT-POST</u></th>
+            <th><u>SUP-INF</u></th>
+            <th><u>NºCAMPOS</u></th>
+        </tr>
+        <tr>
+            <td style="width:85px;text-align:center">TAC.&nbsp;</td>
+            <td style="width:85px;text-align:center">{{persona.tac_lateral}}</td>
+            <td style="width:85px;text-align:center">{{persona.tac_ant_post}}</td>
+            <td style="width:85px;text-align:center">{{persona.tac_sup_inf}}</td>
+            <td style="width 100px;text-align:center">{{persona.numero_campos}}</td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+        </tr>
+        <tr>
+            <td style="width:85px;text-align:center">ISO</td>
+            <td style="width:85px;text-align:center">{{persona.iso_lateral}}</td>
+            <td style="width:85px;text-align:center">{{persona.iso_ant_post}}</td>
+            <td style="width:85px;text-align:center">{{persona.iso_sup_inf}}</td>
+
+        </tr>
+    </table>
+    <table>
+        <tr>
+        </tr>
+        <tr>
+            <td style="width:85px;text-align:center">NOR&nbsp;</td>
+            <td style="width:85px;text-align:center">{{persona.norm_lateral}}</td>
+            <td style="width:85px;text-align:center">{{persona.norm_ant_post}}</td>
+            <td style="width:85px;text-align:center">{{persona.norm_sup_inf}}</td>
+        </tr>
+    </table>
+    <br />
+    <h6>
+    <table>
+                    <tr>
+                <th>Nº Campo</th>
+                <th>Nombre Campo</th>
+                <th>Gantry</th>
+                <th>Colimador</th>
+                <th>Mesa</th>
+                <th>Energia</th>
+                <th>DFP a norm</th>
+                <th>Técnica</th>
+                <th>Y2</th>
+                <th>Y1</th>
+                <th>X2</th>
+                <th>X1</th>
+                <th>dL / dW (offset)</th>
+                <th>X / Y isoc</th>
+                <th>Cuadrado Equiv</th>
+                <th>% Bloqueo</th>
+                <th>Campo equiv.</th>
+                <th>Conformación</th>
+                <th>Prof física</th>
+                <th>Prof equiv</th>
+                <th>Cuña</th>
+                <th>Dose at Ref/Frac</th>
+                <th>Normalización</th>
+                <th>Dosis (cGy)</th>
+                <th>Dosis ref</th>
+                <th>PDD 10</th>
+                <th>Sc isoc</th>
+                <th>Sp isoc</th>
+                <th>TPR</th>
+                <th>F cuña fuera eje</th>
+                <th>OAR</th>
+                <th>UM HOJA</th>
+                <th>UM Pinnacle</th>
+                <th>Dif(%)</th>
+                <th>UM Aria</th>
+                <th>Aria-Pinnacle</th>
+            </tr>
+        {%for i in range(0,numerocamposQueYaTiene)%}
+            <tr>
+                <td style="width:60px;text-align:center">{{records[i].num_campo}}</td>
+                <td style="width:60px;text-align:center">{{records[i].nombre_campo}}</td>
+                <td style="width:60px;text-align:center">{{records[i].gantry}}</td>
+                <td style="width:60px;text-align:center">{{records[i].colimador}}</td>
+                <td style="width:60px;text-align:center">{{records[i].mesa}}</td>
+                <td style="width:60px;text-align:center">{{records[i].energia}}</td>
+                <td style="width:60px;text-align:center">{{records[i].dfp_a_norm}}</td>
+                <td style="width:60px;text-align:center">{{records[i].tecnica}}</td>
+                <td style="width:60px;text-align:center">{{records[i].Y2}}</td>
+                <td style="width:60px;text-align:center">{{records[i].Y1}}</td>
+                <td style="width:60px;text-align:center">{{records[i].X2}}</td>
+                <td style="width:60px;text-align:center">{{records[i].X1}}</td>
+                <td style="width:60px;text-align:center">{{dL[records[i].num_campo-1]}} / {{dW[records[i].num_campo-1]}}</td>
+                <td style="width:60px;text-align:center">{{records[i].Y2 + records[i].Y1}} / {{records[i].X2 + records[i].X1}}</td>
+                <td style="width:60px;text-align:center">{{records[i].cuadrado_equi}}</td>
+                <td style="width:60px;text-align:center">{{records[i].porcentaje_bloqueo}}</td>
+                <td style="width:60px;text-align:center">{{(records[i].cuadrado_equi)*(1-records[i].porcentaje_bloqueo)}}</td>
+                <td style="width:60px;text-align:center">{{records[i].conformacion}}</td>
+                <td style="width:60px;text-align:center">{{records[i].prof_fisica}}</td>
+                <td style="width:60px;text-align:center">{{records[i].prof_equiv}}</td>
+                <td style="width:60px;text-align:center">{{records[i].cunyya}}</td>
+                <td style="width:60px;text-align:center">{{records[i].dose_at_ref_frac}}</td>
+                <td style="width:60px;text-align:center">Falta</td>
+                <td style="width:60px;text-align:center">Falta</td>
+                <td style="width:60px;text-align:center">Falta</td>
+                <td style="width:60px;text-align:center">{{PDD10[records[i].num_campo-1]}}</td>
+                <td style="width:60px;text-align:center">{{Sc_isoc[records[i].num_campo-1]}}</td>
+                <td style="width:60px;text-align:center">{{Sp_isoc[records[i].num_campo-1]}}</td>
+                <td style="width:60px;text-align:center">{{TPR[records[i].num_campo-1]}}</td>
+                <td style="width:60px;text-align:center">{{f_cunya_f_eje[records[i].num_campo-1]}}</td>
+                <td style="width:60px;text-align:center">{{oar[records[i].num_campo-1]}}</td>
+                <td style="width:60px;text-align:center">{{um_hoja[records[i].num_campo-1]}}</td>
+                <td style="width:60px;text-align:center">{{records[i].um_pinnacle}}</td>
+                <td style="width:60px;text-align:center">{{(((um_hoja[records[i].num_campo-1])/(records[i].um_pinnacle))-1)}}%</td>
+                <td style="width:60px;text-align:center">{{records[i].um_pinnacle}}</td>
+                <td style="width:60px;text-align:center">Falta</td>
+            </tr>
+        {%endfor%}
+    </table>
+    </h6>
+    <br />
+    <table>
+        <tr>
+            <td><button><a href="{{url_for('inicio')}}">Volver a Pacientes con Tratamiento en Verificación</a></button></td>
+        </tr>
+    </table>
+</form>
+</body>
+<div style="text-align: right;">
+        &copy; Unir 2021 - Ernesto Matas Millas &nbsp;
+</div>
+</html>
