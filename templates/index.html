@@ -52,9 +52,15 @@ button {
   float: right;
 }
 
+.info {background-color: #2196F3;}
+.info:hover {background: #0b7dda;}
+.danger {background-color: #f44336;}
+.danger:hover {background: #da190b;}
 button:hover {
   background-color: #45a049;
 }
+
+
 
 a {
   color: white;
@@ -110,6 +116,8 @@ table td
 </head>
 <body>
 <h1>&nbsp VSDRI - <u>Pacientes-Tratamientos en Verificación</u></h1>
+<button class="button danger"><a href="salir"><b>Salir</b></a></button>
+<button class="button info">Conectado cómo <b>{{session["usuario"]}}</b></button>
 <h3>&nbsp &nbsp Tratando Actualmente: {{total_personas}}</h3>
 <div class="container">
 <table>
@@ -127,8 +135,9 @@ table td
             <td style="width:150px;text-align:center">{{persona.dni}}</td>
             <td style="width:150px;text-align:center">{{persona.nombre}}</td>
             <td style="width:150px;text-align:center">{{persona.apellido}}</td>
-            <th><button><a href="altaCampo/{{persona.id}}">[+] Campo</a></button></th>
+            <th><button><a href="editar/{{persona.id}}">Modificar Tratamiento-Paciente</a></button></th>
             <th><button><a href="ver/{{persona.id}}">Visualizar Verificación</a></button></th>
+            <th><button><a href="altaCampo/{{persona.id}}">[+] Campo a Tratamiento</a></button></th>
             <!-- <th><button><a href="editar/{{persona.id}}">Modificar</a></button></th>-->
             <td><button><a href="eliminar/{{persona.id}}">Eliminar</a></button></th>
         </tr>

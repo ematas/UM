@@ -1,45 +1,68 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Login VSDRI</title>
-    <style>
-div {
-  background-color: white;
-  width: 300px;
-  border: 1px solid grey;
-  padding: 50px;
-  margin: 20px;
-}
-.box{
-   position:absolute;
-   width: 300px;
-   left: 50%;
-   margin-left: -100px;
-}
-</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+  .modal-header, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+  }
+  .modal-footer {
+    background-color: #f9f9f9;
+  }
+  </style>
 </head>
 <body>
-<table>
-    <tr>
-        <th>
-            <div class="box" align="center"><h1>VSDRI <br><br> VERIFICACIÓN SECUNDARIA CÁLCULO DOSIS DE RADIACIONES IONIZANTES EN EL TTO DE PACIENTES ONCOLÓGICOS</h1></div>v 20210903
-        </th>
-    </tr>
-    <tr>
-    <td>
-    <form method="POST">
-        <label for="username">Usuario</label>
-        <input type="text" name="username">
 
-        <label for="password">Contraseña</label>
-        <input type="password" name="password">
+<div class="container">
+  <h2 style="text-align:center"><b><u>VSDRI</u></b><br /><br />VERIFICACIÓN SECUNDARIA CÁLCULO DOSIS RADIACIONES IONIZANTES</h2>
+  <!-- Trigger the modal with a button -->
+      <h2 style="text-align:center"><button type="button" class="btn btn-default btn-lg" id="myBtn">Entrar</button></h2>
 
-        <input type="submit" value="Entrar"/>
-    </form>
-    </td>
-    </tr>
-</tr>
-</table>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="padding:35px 50px;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4><span class="glyphicon glyphicon-lock"></span> Entrar a VSDRI</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+          <form role="form" method="POST">
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Usuario</label>
+              <input type="text" class="form-control" id="usrname" placeholder="Introduzca su usuario" name="username">
+            </div>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Contraseña</label>
+              <input type="text" class="form-control" id="psw" placeholder="Introduzca su contraseña" name="password">
+            </div>
+              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Entrar</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#myBtn").click(function(){
+    $("#myModal").modal();
+  });
+});
+</script>
+
 </body>
 </html>

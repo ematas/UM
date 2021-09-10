@@ -1,6 +1,6 @@
 
 from collections import namedtuple
-from flask import Flask, render_template, request, session, url_for
+from flask import Flask, render_template, request, session, url_for, flash
 from flask_migrate import Migrate
 from werkzeug.utils import redirect
 
@@ -39,32 +39,23 @@ migrate.init_app(app, db)
 app.config['SECRET_KEY'] = 'sermicro2012'
 
 
-
+#Ruta de inicio
 @app.route('/')
 @app.route('/index')
 @app.route('/index.html')
 def inicio():
-    #if 'username' in session:
-    # listado de personas (realizamos la consulta)
-    # nos traerá todos los objetos tipo personas
-    #personas = Persona.query.all() //sin orden
-    personas = Persona.query.order_by('id')
-    total_personas = Persona.query.count()
-    return render_template('index.html', personas=personas, total_personas=total_personas)
-    #    return 'El usuario ya ha hecho login'
-    #return 'No ha hecho Login'
+    if 'username' in session:
+        return redirect(url_for('escritorio'))
+    return redirect(url_for('login'))
 
 #opción para iniciar sesión en la app
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
-        #omitimos la validación de usuario y password
         usuario = request.form['username']
-        #agregamos el usuario a la sesión
         session['username'] = usuario
         return redirect(url_for('inicio'))
     return render_template('login.html')
-
 
 # opción de sólo ver una persona (para lo qué recibiremos un parámetro)
 @app.route('/ver/<int:id>', methods=['GET', 'POST'])
@@ -177,6 +168,23 @@ def eliminar(este):
     db.session.delete(persona)
     db.session.commit()
     return redirect(url_for('inicio'))
+
+
+@app.route('/escritorio')
+def escritorio():
+    if 'username' in session:
+        #Mostramos a los pacientes ordenados por ID
+        personas = Persona.query.order_by('id')
+        total_personas = Persona.query.count()
+        return render_template('index.html', personas=personas, total_personas=total_personas)
+    else:
+        return render_template('login.html')
+
+@app.route('/salir')
+def salir():
+    session.pop('username')
+    return redirect(url_for('inicio'))
+
 
 '''
 @app.route('/tratamiento.html/<int:este>', methods=['GET', 'POST'])
