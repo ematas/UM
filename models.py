@@ -149,8 +149,8 @@ class Tratamiento(db.Model):
 
 class Usuario(db.Model):
     id_usuario = db.Column(db.Integer, primary_key=True)
-    nombre_usuario = db.Column(db.String(100))
-    clave_usuario = db.Column(db.String(100))
+    nombre_usuario = db.Column(db.String(120))
+    clave_usuario = db.Column(db.String(120))
     rol_usuario = db.Column(db.String(3))
 
     def __str__(self):
