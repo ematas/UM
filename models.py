@@ -146,3 +146,17 @@ class Tratamiento(db.Model):
             # f'Error Verificación: {self.error_verificacion}, '
             # f'Error de Redondeo de UM: {self.error_redondeo_de_um}, '
         )
+
+class Usuario(db.Model):
+    id_usuario = db.Column(db.Integer, primary_key=True)
+    nombre_usuario = db.Column(db.String(100))
+    clave_usuario = db.Column(db.String(100))
+    rol_usuario = db.Column(db.String(3))
+
+    def __str__(self):
+        return (
+            f'Id: {self.id_usuario}, '
+            f'Nombre: {self.nombre_usuario}'
+            f'Clave: {self.clave_usuario}, '
+            f'Rol: {self.rol_usuario},'
+        )

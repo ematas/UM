@@ -1,6 +1,6 @@
 
 from collections import namedtuple
-from flask import Flask, render_template, request, session, url_for, flash
+from flask import Flask, render_template, request, session, url_for
 from flask_migrate import Migrate
 from werkzeug.utils import redirect
 
