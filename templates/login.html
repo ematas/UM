@@ -36,7 +36,7 @@
           <h4><span class="glyphicon glyphicon-lock"></span> Entrar a VSDRI</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-          <form role="form" method="POST">
+          <form action="{{url_for('hacer_login')}}" role="form" method="POST">
             <div class="form-group">
               <label for="usrname"><span class="glyphicon glyphicon-user"></span> Usuario</label>
               <input type="text" class="form-control" id="usrname" placeholder="Introduzca su usuario" name="username">

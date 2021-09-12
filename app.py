@@ -1,4 +1,3 @@
-
 from collections import namedtuple
 from flask import Flask, render_template, request, session, url_for
 from flask_migrate import Migrate
@@ -6,7 +5,7 @@ from werkzeug.utils import redirect
 
 from database import db
 from forms import PersonaForm, TratamientoForm
-from models import Persona, Tratamiento
+from models import Persona, Tratamiento, Usuario
 
 app = Flask(__name__)
 
@@ -39,28 +38,26 @@ migrate.init_app(app, db)
 app.config['SECRET_KEY'] = 'sermicro2012'
 
 
-#Ruta de inicio
+# Ruta de inicio
 @app.route('/')
 @app.route('/index')
 @app.route('/index.html')
 def inicio():
     if 'username' in session:
         return redirect(url_for('escritorio'))
-    return redirect(url_for('login'))
-
-#opción para iniciar sesión en la app
-@app.route('/login', methods=['GET','POST'])
-def login():
-    if request.method == 'POST':
-        usuario = request.form['username']
-        session['username'] = usuario
-        return redirect(url_for('inicio'))
     return render_template('login.html')
+
+
+# opción para iniciar sesión en la app
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template('login.html')
+
 
 # opción de sólo ver una persona (para lo qué recibiremos un parámetro)
 @app.route('/ver/<int:id>', methods=['GET', 'POST'])
 def ver(id):
-    #precargo datos necesarios
+    # precargo datos necesarios
     dL = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     dW = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     PDD10 = [78.1, 77.3, 83.8, 103.4, 103.5, 107.4, 107.6, 90.4]
@@ -71,13 +68,12 @@ def ver(id):
     oar = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
     um_hoja = [45.72, 5.08, 51.11, 39.20, 5.05, 29.77, 3.92, 54.31]
 
-
     # CON RESPECTO AL PACIENTE
     # recuperamos la persona según id proporcionado
     # si no lo encuentra ese id nos devuelve el código de error 404
     persona = Persona.query.get_or_404(id)
 
-    #cargo los Tratamientos (campos) a pasar al formulario
+    # cargo los Tratamientos (campos) a pasar al formulario
     camposQueTienePaciente = db.session.execute("SELECT * from tratamiento where id_paciente = :idid", {'idid': id})
 
     # veo cuántos campos tiene dado de alta (para poder iterar en el formulario)
@@ -86,7 +82,9 @@ def ver(id):
     numerocamposQueYaTiene = len(records)
 
     # ahora lo compartimos con nuestra página
-    return render_template('detalle.html', persona=persona, numerocamposQueYaTiene=numerocamposQueYaTiene, Record=Record, records=records, dL=dL, dW=dW, PDD10=PDD10, Sc_isoc=Sc_isoc, Sp_isoc=Sp_isoc, TPR=TPR, f_cunya_f_eje=f_cunya_f_eje, oar=oar, um_hoja=um_hoja)
+    return render_template('detalle.html', persona=persona, numerocamposQueYaTiene=numerocamposQueYaTiene,
+                           Record=Record, records=records, dL=dL, dW=dW, PDD10=PDD10, Sc_isoc=Sc_isoc, Sp_isoc=Sp_isoc,
+                           TPR=TPR, f_cunya_f_eje=f_cunya_f_eje, oar=oar, um_hoja=um_hoja)
 
 
 # opción de sólo ver una persona (para lo qué recibiremos un parámetro)
@@ -100,12 +98,13 @@ def altaCampo(id):
     tratamiento = Tratamiento()
     tratamientoForm = TratamientoForm(obj=tratamiento)
 
-    #veo los campos qué tiene dado de alta este paciente
-    camposQueTienePaciente = db.session.execute("SELECT tratamiento.id_paciente from tratamiento where id_paciente = :idid", {'idid': id})
-    #veo cuántos campos tiene dado de alta
+    # veo los campos qué tiene dado de alta este paciente
+    camposQueTienePaciente = db.session.execute(
+        "SELECT tratamiento.id_paciente from tratamiento where id_paciente = :idid", {'idid': id})
+    # veo cuántos campos tiene dado de alta
     Record = namedtuple('Record', camposQueTienePaciente.keys())
     records = [Record(*r) for r in camposQueTienePaciente.fetchall()]
-    camposQueYaTiene = len(records)+1
+    camposQueYaTiene = len(records) + 1
 
     pacienteAfectado = persona.id
     totaldecampos = db.session.query(Tratamiento.id_campo).count()
@@ -122,7 +121,8 @@ def altaCampo(id):
             return redirect(url_for('inicio'))
 
     # ahora lo compartimos con nuestra página
-    return render_template('altaCampo.html', persona=persona, forma=tratamientoForm, camposQueYaTiene=camposQueYaTiene, pacienteAfectado=pacienteAfectado, totaldecampos=totaldecampos)
+    return render_template('altaCampo.html', persona=persona, forma=tratamientoForm, camposQueYaTiene=camposQueYaTiene,
+                           pacienteAfectado=pacienteAfectado, totaldecampos=totaldecampos)
 
 
 @app.route('/agregar.html', methods=['GET', 'POST'])
@@ -170,21 +170,32 @@ def eliminar(este):
     return redirect(url_for('inicio'))
 
 
-@app.route('/escritorio')
+@app.route('/escritorio', methods=['GET', 'POST'])
 def escritorio():
-    if 'username' in session:
-        #Mostramos a los pacientes ordenados por ID
-        personas = Persona.query.order_by('id')
-        total_personas = Persona.query.count()
-        return render_template('index.html', personas=personas, total_personas=total_personas)
-    else:
-        return render_template('login.html')
+    # Mostramos a los pacientes ordenados por ID
+    personas = Persona.query.order_by('id')
+    total_personas = Persona.query.count()
+    return render_template('index.html', personas=personas, total_personas=total_personas)
+
 
 @app.route('/salir')
 def salir():
     session.pop('username')
     return redirect(url_for('inicio'))
 
+
+@app.route('/hacer_login', methods=['GET', 'POST'])
+def hacer_login():
+    correo = request.form["username"]
+    palabra_secreta = request.form["password"]
+    usuarios_que_tenemos = Usuario.query.all()
+    for i in usuarios_que_tenemos:
+        if correo == i.nombre_usuario and palabra_secreta == i.clave_usuario:
+            session["username"] = correo
+            return redirect("/escritorio")
+    else:
+        # Si NO coincide, lo regresamos
+        return redirect("/login")
 
 '''
 @app.route('/tratamiento.html/<int:este>', methods=['GET', 'POST'])
