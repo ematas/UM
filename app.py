@@ -192,6 +192,7 @@ def hacer_login():
     for i in usuarios_que_tenemos:
         if correo == i.nombre_usuario and palabra_secreta == i.clave_usuario:
             session["username"] = correo
+            session["rol"]=i.rol_usuario
             return redirect("/escritorio")
     else:
         # Si NO coincide, lo regresamos
